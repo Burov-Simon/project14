@@ -1,3 +1,5 @@
+import pytest
+
 from src.classes import Category, Product
 
 
@@ -25,6 +27,47 @@ def test_category_initialization():
     )
     assert c.name == "Смартфоны"
     assert c.description == "Смартфоны, как средство не только коммуникации"
-    assert c.products == [product1, product2]
+    assert c.products == [
+        "Samsung Galaxy S23 Ultra: 180000.0 руб. Остаток: 5 шт.",
+        "Iphone 15: 210000.0 руб. Остаток: 8 шт.",
+    ]
     assert Category.category_count == 1
     assert Category.product_count == 2
+
+
+def test_product_creation_and_price(capsys):
+    new_product = Product.new_product(
+        {
+            "name": "Samsung Galaxy S23 Ultra",
+            "description": "256GB, Серый цвет, 200MP камера",
+            "price": 180000.0,
+            "quantity": 5,
+        }
+    )
+    assert new_product.name == "Samsung Galaxy S23 Ultra"
+    assert new_product.description
+    assert new_product.price == 180000.0
+    assert new_product.quantity == 5
+    new_product.price = 800
+    assert new_product.price == 800
+    new_product.price = 0
+    message = capsys.readouterr()
+    assert "Цена не должна быть нулевая или отрицательная" in message.out
+    new_product.price = -100
+    assert "Цена не должна быть нулевая или отрицательная" in message.out
+
+
+@pytest.fixture
+def category_smart():
+    return Category(
+        "Смартфоны",
+        "Смартфоны, как средство не только коммуникации, "
+        "но и получения дополнительных функций для удобства жизни.",
+        [product1, product2],
+    )
+
+
+def test_add_product_category(category_smart):
+    product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+    Category.add_product(category_smart, product4)
+    assert category_smart.product_count == 5

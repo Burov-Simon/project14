@@ -29,3 +29,6 @@
   - `__init__(name, description, products)` — присваивает поля и увеличивает class-level счётчики:
     - `Category.category_count += 1`
     - `Category.product_count += len(products)`
+
+# HomeWork 16.1
+- Были добавленны два дочерних класса Smartphone и LawnGrass от Product

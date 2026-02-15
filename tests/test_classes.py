@@ -71,3 +71,12 @@ def test_add_product_category(category_smart):
     product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
     Category.add_product(category_smart, product4)
     assert category_smart.product_count == 5
+
+def test_str_product():
+    assert str(product1) == 'Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.'
+
+def test_add_product():
+    assert product1 + product2 == 2580000.0
+
+def test_str_category(category_smart):
+    assert str(category_smart) == "Смартфоны, количество продуктов: 13 шт."

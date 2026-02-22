@@ -173,3 +173,12 @@ def test_add_product_invalid():
 
     with pytest.raises(TypeError):
         smartphone1 + grass1
+
+
+def test_mixin_print(capsys):
+    Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    messages = capsys.readouterr()
+    assert (
+        messages.out.strip()
+        == "Product(Samsung Galaxy S23 Ultra, 256GB, Серый цвет, 200MP камера, 180000.0, 5)"
+    )

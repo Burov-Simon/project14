@@ -32,3 +32,5 @@
 
 # HomeWork 16.1
 - Были добавленны два дочерних класса Smartphone и LawnGrass от Product
+# HomeWork 16.2
+- Были добавленны абстрактный класс BaseProduct и миксин PrintMixin

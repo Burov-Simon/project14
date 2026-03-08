@@ -182,3 +182,16 @@ def test_mixin_print(capsys):
         messages.out.strip()
         == "Product(Samsung Galaxy S23 Ultra, 256GB, Серый цвет, 200MP камера, 180000.0, 5)"
     )
+
+
+def test_value_error_in_product():
+    with pytest.raises(
+        ValueError, match="Товар с нулевым количеством не может быть добавлен"
+    ):
+        Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+
+
+def test_category_middle_price(category_smart):
+    category_empty = Category("Пустая категория", "Категория без продуктов", [])
+    assert category_empty.middle_price() == 0
+    assert category_smart.middle_price() == 195000.0

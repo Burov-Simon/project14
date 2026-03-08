@@ -25,7 +25,10 @@ class Product(PrintMixin, BaseProduct):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
 
     def __str__(self):
@@ -91,6 +94,14 @@ class Category:
             f"{p.name}: {p.price} руб. Остаток: {p.quantity} шт."
             for p in self.__products
         ]
+
+    def middle_price(self):
+        try:
+            return sum([product.price for product in self.__products]) / len(
+                self.__products
+            )
+        except ZeroDivisionError:
+            return 0
 
 
 class Smartphone(Product):
